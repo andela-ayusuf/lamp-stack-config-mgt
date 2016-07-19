@@ -1,0 +1,18 @@
+---
+- name: Check if php5 is installed
+  shell: dpkg --get-selections 2>&1 | grep php5
+  register: php5_installed
+  ignore_errors: true
+
+- name: Install php5 if its uninstalled
+  apt: name=php5 state=present force=yes
+  when: php5_installed|failed
+
+- name: Check if php5-mcrypt is installed
+  shell: dpkg --get-selections 2>&1 | grep php5-mcrypt
+  register: php5_mcrypt_installed
+  ignore_errors: true
+
+- name: Install php5-mcrypt if its uninstalled
+  apt: name=php5-mcrypt state=present force=yes
+  when: php5_mcrypt_installed|failed
