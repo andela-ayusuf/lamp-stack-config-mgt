@@ -1,11 +1,11 @@
 ---
 - hosts: all
-  user: "{{user}}"
+  user: "{{ vm_user }}"
   become: yes
   become_method: sudo
   vars_files:
   - vars/vars.yml
   roles:
-  - apache
-  - mysql
-  - php
+    - apache
+    - mysql
+    - php
