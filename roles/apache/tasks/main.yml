@@ -1,21 +1,19 @@
 ---
-- name: Check if Apache is installed
-  shell: service --status-all 2>&1 | grep apache2
+- name: Check if Apache and PHP module for Apache is installed
+  shell: service --status-all 2>&1 | grep {{ item }}
   register: apache2_installed
-  ignore_errors: true
+  ignore_errors: True
+  with_items:
+    - apache2
+    - libapache2-mod-php5
+  tags:
+    - apache_setup
 
-- name: Install Apache if its uninstalled
-  apt: name=apache2 state=present force=yes
+- name: Install Apache and PHP module for Apache if uninstalled
+  apt: name={{ item }} state=present
+  with_items:
+    - apache2
+    - libapache2-mod-php5
   when: apache2_installed|failed
-
-- name: Check if PHP module for Apache is installed
-  shell: dpkg --get-selections 2>&1 | grep libapache2-mod-php5
-  register: libapache2_installed
-  ignore_errors: true
-
-- name: Install PHP module for Apache
-  apt: name=libapache2-mod-php5 state=present force=yes
-  when: libapache2_installed|failed
-
-- name: Start Apache
-  service: name=apache2 state=running enabled=yes
+  tags:
+    - apache_setup

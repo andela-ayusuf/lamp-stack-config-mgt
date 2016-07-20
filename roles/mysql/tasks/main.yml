@@ -1,18 +1,19 @@
 ---
-- name: Check if mysql-server is installed
-  shell: dpkg --get-selections 2>&1 | grep mysql
-  register: mysql_server_installed
-  ignore_errors: true
+- name: Check if mysql-server and php5-mysql are installed
+  shell: dpkg --get-selections 2>&1 | grep {{ item }}
+  register: mysql_installed
+  ignore_errors: True
+  with_items:
+    - mysql-server
+    - php5-mysql
+  tags:
+    - mysql_setup
 
-- name: Install mysql-server if its uninstalled
-  apt: name=mysql-server state=present force=yes
-  when: mysql_server_installed|failed
-
-- name: Check if php5-mysql is installed
-  shell: dpkg --get-selections 2>&1 | grep php5-mysql
-  register: php5_mysql_installed
-  ignore_errors: true
-
-- name: Install php5-mysql if its uninstalled
-  apt: name=php5-mysql state=present force=yes
-  when: php5_mysql_installed|failed
+- name: Install mysql-server and php5-mysql if uninstalled
+  apt: name={{ item }} state=present
+  with_items:
+    - mysql-server
+    - php5-mysql
+  when: mysql_installed|failed
+  tags:
+    - mysql_setup
