@@ -1,3 +1,7 @@
 *retry
 vars/
 .DS_Store
+.vagrant
+*.gem
+*.rbc
+*.pem
