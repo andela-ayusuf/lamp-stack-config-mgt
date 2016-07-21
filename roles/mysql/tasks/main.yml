@@ -1,6 +1,6 @@
 ---
 - name: Check if mysql-server and php5-mysql are installed
-  shell: dpkg --get-selections 2>&1 | grep {{ item }}
+  command: service --status-all | grep {{ item }}
   register: mysql_installed
   ignore_errors: True
   with_items:
