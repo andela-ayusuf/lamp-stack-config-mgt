@@ -1,9 +1,0 @@
----
-- hosts: all
-  user: "{{ vm_user }}"
-  become: yes
-  become_method: sudo
-  vars_files:
-  - vars/vars.yml
-  roles:
-    - provision
