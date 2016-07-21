@@ -7,10 +7,14 @@ end
 
 And(/^I provision it$/) do
 	output, error, status = Open3.capture3 "vagrant provision"
-	cmd = "ansible-playbook -i inventory.ini --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant playbook.provision.yml --tags 'provision'"
-	provision_output, provision_error, provision_status = Open3.capture3 "#{cmd}"
+	cmd = "ansible-playbook -i inventory.ini --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant playbook.lamp.yml --tags 'provision'"
+	output, error, status = Open3.capture3 "#{cmd}"
 	expect(status.success?).to eq(true)
-	expect(provision_status.success?).to eq(true)
+end
+
+When(/^I update apt cache$/) do
+  cmd = "ansible-playbook -i inventory.ini --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant playbook.lamp.yml --tags 'provision'"
+  output, error, @status = Open3.capture3 "#{cmd}"
 end
 
 When(/^I install Apache$/) do

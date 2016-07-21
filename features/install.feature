@@ -5,6 +5,10 @@ Feature: Configure LAMP stack
 		And I provision it
 
 	Scenario:
+		When I update apt cache
+		Then it should be successful
+
+	Scenario:
 		When I install Apache
 		Then it should be successful
 		And Apache should be running
@@ -14,6 +18,7 @@ Feature: Configure LAMP stack
 		When I install MySQL
 		Then it should be successful
 		And MySQL should be running
+		And it should be accepting connections on port 3306
 
 	Scenario:
 		When I install PHP
