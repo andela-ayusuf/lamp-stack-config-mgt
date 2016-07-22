@@ -1,5 +1,6 @@
 *retry
-vars/
+vars/vars0.yml
+features/step_definitions/vars0.rb
 .DS_Store
 .vagrant
 *.gem
