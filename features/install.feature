@@ -1,9 +1,5 @@
 Feature: Configure LAMP stack
 
-	Background: 
-		Given I have a running server
-		And I provision it
-
 	Scenario:
 		When I update apt cache
 		Then it should be successful
