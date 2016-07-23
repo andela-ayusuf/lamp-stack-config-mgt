@@ -16,14 +16,14 @@ Then(/^it should be successful$/) do
 end
 
 And(/^Apache should be running$/) do
-	cmd = "ssh -i '#{PATHTOKEY}' #{AWSPUBDNS} 'sudo service apache2 status'"
+	cmd = "ssh -i '#{PATHTOKEY}' #{PUBDNS} 'sudo service apache2 status'"
 	output, error, status = Open3.capture3 "#{cmd}"
 	expect(status.success?).to eq(true)
   expect(output).to match("apache2 is running")
 end
 
 And(/^it should be accepting connections on port ([^"]*)$/) do |port|
-  output, error, status = Open3.capture3 "ssh -i '#{PATHTOKEY}' #{AWSPUBDNS} 'curl -f http://localhost:#{port}'"
+  output, error, status = Open3.capture3 "ssh -i '#{PATHTOKEY}' #{PUBDNS} 'curl -f http://localhost:#{port}'"
   expect(status.success?).to eq(true)
 end
 
@@ -33,7 +33,7 @@ When(/^I install MySQL$/) do
 end
 
 And(/^MySQL should be running$/) do
-	cmd = "ssh -i '#{PATHTOKEY}' #{AWSPUBDNS} 'sudo service mysql status'"
+	cmd = "ssh -i '#{PATHTOKEY}' #{PUBDNS} 'sudo service mysql status'"
 	output, error, status = Open3.capture3 "#{cmd}"
 	expect(status.success?).to eq(true)
 	expect(output).to match("mysql start/running")
