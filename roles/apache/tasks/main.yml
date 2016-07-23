@@ -1,6 +1,6 @@
 ---
 - name: Check if Apache and PHP module for Apache is installed
-  command: service --status-all | grep {{ item }}
+  command: bash -c "dpkg --get-selections | grep {{ item }}"
   register: apache2_installed
   ignore_errors: True
   with_items:
