@@ -30,6 +30,11 @@ Run the playbook:
 ```
 $ ansible-playbook playbook.lamp.yml -i inventory.ini --private-key=path/to/private/key
 ```
+OR
+```
+$ cucumber features/install.feature
+```
+
 With that done you have a LAMP stack configured on our VM. If you will like to go on and install Nagios Core monitoring tool, there is a playbook [here](https://github.com/andela-ayusuf/nagios-ansible) to do just that.
 
 **Issues**
